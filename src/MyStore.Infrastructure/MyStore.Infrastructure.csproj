@@ -2,6 +2,9 @@
   <ItemGroup>
     <ProjectReference Include="..\MyStore.Core\MyStore.Core.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Autofac" Version="4.8.1" />
+  </ItemGroup>
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>

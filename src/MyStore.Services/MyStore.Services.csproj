@@ -4,6 +4,7 @@
     <ProjectReference Include="..\MyStore.Infrastructure\MyStore.Infrastructure.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Autofac" Version="4.8.1" />
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
   </ItemGroup>
   <PropertyGroup>
