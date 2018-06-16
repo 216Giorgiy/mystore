@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using MyStore.Api.Framework;
+using MyStore.Core.Repositories;
+using MyStore.Infrastructure.Repositories;
+using MyStore.Services.Products;
 using Newtonsoft.Json;
 
 namespace MyStore.Api
@@ -23,7 +20,7 @@ namespace MyStore.Api
         }
 
         public IConfiguration Configuration { get; }
-
+ 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
@@ -33,6 +30,9 @@ namespace MyStore.Api
             services.AddMemoryCache();
             services.AddResponseCaching();
             services.Configure<AppOptions>(Configuration.GetSection("app"));
+
+            services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<IProductRepository, InMemoryProductRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

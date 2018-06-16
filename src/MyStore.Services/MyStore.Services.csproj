@@ -1,12 +1,12 @@
-<Project Sdk="Microsoft.NET.Sdk">
-
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <ItemGroup>
     <ProjectReference Include="..\MyStore.Core\MyStore.Core.csproj" />
     <ProjectReference Include="..\MyStore.Infrastructure\MyStore.Infrastructure.csproj" />
   </ItemGroup>
-
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+  </ItemGroup>
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
-
 </Project>

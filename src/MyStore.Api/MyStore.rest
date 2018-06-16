@@ -1,7 +1,5 @@
 @url = http://localhost:5000
-@productId = 95de3172-1f08-48bf-94ec-4971684d3f39
-@productName =  "My product"
-
+@productId = a6c204b6-be7a-4239-a820-d4b6d1d56a2b
 
 ###
 GET {{url}}/products
@@ -14,5 +12,7 @@ POST {{url}}/products
 Content-Type: application/json
 
 {
-    "name": {{productName}}
+    "name": "My product",
+    "category": "products",
+    "price": 2000
 }
