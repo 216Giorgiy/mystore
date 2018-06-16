@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.Design;
+using System.Text;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Builder;
@@ -8,9 +9,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using MyStore.Api.Framework;
 using MyStore.Core.Repositories;
 using MyStore.Infrastructure;
+using MyStore.Infrastructure.Auth;
 using MyStore.Infrastructure.Repositories;
 using MyStore.Services;
 using MyStore.Services.Products;
@@ -37,6 +40,23 @@ namespace MyStore.Api
             services.AddMemoryCache();
             services.AddResponseCaching();
             services.Configure<AppOptions>(Configuration.GetSection("app"));
+            services.Configure<JwtOptions>(Configuration.GetSection("jwt"));
+            
+            //bit.ly/sii-jwt2
+            var jwtOptions = new JwtOptions();
+            Configuration.GetSection("jwt").Bind(jwtOptions);
+            
+            services.AddAuthentication()
+                .AddJwtBearer(cfg =>
+                {
+                    cfg.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidIssuer = jwtOptions.Issuer,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions.SecretKey)),
+                        ValidateAudience = false,
+                        //ValidateLifetime = true
+                    };
+                });
             
             var builder = new ContainerBuilder();
             builder.Populate(services);
@@ -67,6 +87,7 @@ namespace MyStore.Api
             }
 
             //app.UseHttpsRedirection();
+            app.UseAuthentication();
             app.UseResponseCaching();
             app.UseMiddleware<ErrorHandlerMiddleware>();
             app.UseMvc();
