@@ -9,6 +9,8 @@ namespace MyStore.Services
             builder.RegisterAssemblyTypes(typeof(ServicesContainer).Assembly)
                 .AsImplementedInterfaces()
                 .InstancePerLifetimeScope();
+            builder.RegisterInstance(AutoMapperConfig.GetMapper())
+                .SingleInstance();
         }
     }
 }
