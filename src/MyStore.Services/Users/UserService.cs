@@ -11,7 +11,10 @@ namespace MyStore.Services.Users
 {
     public class UserService : IUserService
     {
-        private static readonly List<User> _users = new List<User>();
+        private static readonly List<User> _users = new List<User>
+        {
+            new User("user", "user")
+        };
         private readonly IJwtProvider _jwtProvider;
         private readonly IPasswordHasher<User> _passwordHasher;
 
