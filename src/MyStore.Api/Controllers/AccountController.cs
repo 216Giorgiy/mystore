@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using MyStore.Api.Framework;
 using MyStore.Infrastructure.Auth;
 using MyStore.Services.Users;
 using MyStore.Services.Users.Commands;
@@ -20,7 +21,7 @@ namespace MyStore.Api.Controllers
         }
         
         [HttpGet("me")]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Auth]
         public ActionResult<string> Get() => User.Identity.Name;
 
         [HttpPost("sign-in")]

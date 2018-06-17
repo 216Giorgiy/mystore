@@ -1,6 +1,6 @@
 @url = http://localhost:5000
 @productId = f3c5fbf0-fea3-41e5-96dd-e5f672b444fb
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI4YWU1Y2FhOC0yZDkzLTQyYjktOGY5MC1hOWY1ZjZhMzYyOGUiLCJ1bmlxdWVfbmFtZSI6IjhhZTVjYWE4LTJkOTMtNDJiOS04ZjkwLWE5ZjVmNmEzNjI4ZSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6InVzZXIiLCJuYmYiOjE1MjkxNjIyNjQsImV4cCI6MTUyOTE2MjU2NCwiaXNzIjoibXlzdG9yZSJ9.kdKBGq2KMsvDy-v1GI7sQu9nqnUfz1bh7QIm_LnNIuA
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxZTIyMDVjMy1lY2EzLTRjZWUtYTY0Ny00ODI1Y2ZiNjcwNDciLCJ1bmlxdWVfbmFtZSI6IjFlMjIwNWMzLWVjYTMtNGNlZS1hNjQ3LTQ4MjVjZmI2NzA0NyIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6InVzZXIiLCJuYmYiOjE1MjkyMTkzNzUsImV4cCI6MTUyOTIxOTY3NSwiaXNzIjoibXlzdG9yZSJ9.gNxJZb5-4cnU-JeTTeWIDIUoEjfkO50Mp-hc9eEjd6c
 
 ###
 GET {{url}}/products
@@ -10,6 +10,7 @@ GET {{url}}/products/{{productId}}
 
 ###
 POST {{url}}/products
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
@@ -19,12 +20,23 @@ Content-Type: application/json
 }
 
 ###
-GET {{url}}/me
-Authorization: Bearer {{token}}
+POST {{url}}/sign-up
+Content-Type: application/json
+
+{
+    "username": "user",
+    "password": "secret"
+}
 
 ###
 POST {{url}}/sign-in
 Content-Type: application/json
 
 {
+    "username": "user",
+    "password": "secret"
 }
+
+###
+GET {{url}}/me
+Authorization: Bearer {{token}}

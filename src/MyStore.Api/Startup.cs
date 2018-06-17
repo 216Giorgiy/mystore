@@ -37,6 +37,8 @@ namespace MyStore.Api
             services.AddResponseCaching();
             services.Configure<AppOptions>(Configuration.GetSection("app"));
             services.Configure<JwtOptions>(Configuration.GetSection("jwt"));
+
+            services.AddAuthorization(a => a.AddPolicy("admin", p => p.RequireRole("admin")));
             
             var jwtOptions = new JwtOptions();
             Configuration.GetSection("jwt").Bind(jwtOptions);

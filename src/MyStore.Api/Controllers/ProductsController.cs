@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using MyStore.Api.Framework;
 using MyStore.Services.Products;
 using MyStore.Services.Products.Commands;
 using MyStore.Services.Products.Dto;
@@ -35,6 +36,7 @@ namespace MyStore.Api.Controllers
         }
 
         [HttpPost]
+        [Auth(policy: "admin")]
         public async Task<ActionResult> Post([FromBody] CreateProduct command)
         {
             await _productService.AddAsync(command);
