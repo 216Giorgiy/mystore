@@ -12,6 +12,7 @@ using Microsoft.IdentityModel.Tokens;
 using MyStore.Api.Framework;
 using MyStore.Infrastructure;
 using MyStore.Infrastructure.Auth;
+using MyStore.Infrastructure.EF;
 using MyStore.Services;
 using Newtonsoft.Json;
 
@@ -37,6 +38,11 @@ namespace MyStore.Api
             services.AddResponseCaching();
             services.Configure<AppOptions>(Configuration.GetSection("app"));
             services.Configure<JwtOptions>(Configuration.GetSection("jwt"));
+            services.Configure<SqlOptions>(Configuration.GetSection("sql"));
+
+            services.AddEntityFrameworkSqlServer()
+                .AddEntityFrameworkInMemoryDatabase()
+                .AddDbContext<MyStoreContext>();
 
             services.AddAuthorization(a => a.AddPolicy("admin", p => p.RequireRole("admin")));
             
@@ -69,10 +75,13 @@ namespace MyStore.Api
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env,
-            ILoggerFactory loggerFactory, IApplicationLifetime applicationLifetime)
+            ILoggerFactory loggerFactory, IApplicationLifetime applicationLifetime,
+            MyStoreContext context)
         {
             loggerFactory.AddConsole()
                 .AddDebug();
+
+            context.Database.EnsureCreated();
 
             if (env.IsDevelopment())
             {

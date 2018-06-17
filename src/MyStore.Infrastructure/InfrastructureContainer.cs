@@ -1,4 +1,6 @@
 ﻿using Autofac;
+using MyStore.Core.Repositories;
+using MyStore.Infrastructure.EF;
 
 namespace MyStore.Infrastructure
 {
@@ -8,6 +10,9 @@ namespace MyStore.Infrastructure
         {
             builder.RegisterAssemblyTypes(typeof(InfrastructureContainer).Assembly)
                 .AsImplementedInterfaces()
+                .InstancePerLifetimeScope();
+            builder.RegisterType<EfProductRepository>()
+                .As<IProductRepository>()
                 .InstancePerLifetimeScope();
         }
     }
