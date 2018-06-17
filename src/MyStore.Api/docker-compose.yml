@@ -1,0 +1,23 @@
+version: "2"
+
+services:
+  api:
+    image: mystore.api:local
+    links:
+      - sql
+    ports:
+      - '5000:5000'
+
+  sql:
+    image: microsoft/mssql-server-linux:2017-latest
+    ports:
+      - '1433:1433'
+    environment:
+      - 'ACCEPT_EULA=Y'
+      - 'MSSQL_SA_PASSWORD=Abcd1234!'
+    volumes:
+      - 'sql:/var/opt/mssql'
+
+volumes:
+  sql:
+    driver: local
