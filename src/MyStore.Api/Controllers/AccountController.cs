@@ -1,19 +1,22 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyStore.Infrastructure.Auth;
+using MyStore.Services.Users;
+using MyStore.Services.Users.Commands;
 
 namespace MyStore.Api.Controllers
 {
     [Route("")]
     public class AccountController : BaseController
     {
-        private readonly IJwtProvider _jwtProvider;
+        private readonly IUserService _userService;
 
-        public AccountController(IJwtProvider jwtProvider)
+        public AccountController(IUserService userService)
         {
-            _jwtProvider = jwtProvider;
+            _userService = userService;
         }
         
         [HttpGet("me")]
@@ -21,7 +24,15 @@ namespace MyStore.Api.Controllers
         public ActionResult<string> Get() => User.Identity.Name;
 
         [HttpPost("sign-in")]
-        public ActionResult<JsonWebToken> SignIn()
-            => _jwtProvider.Create(Guid.NewGuid(), "user");
+        public async Task<ActionResult<JsonWebToken>> SignIn([FromBody] SignIn command)
+            => Ok(await _userService.SignInAsync(command));
+
+        [HttpPost("sign-up")]
+        public async Task<ActionResult> SignUp([FromBody] SignUp command)
+        {
+            await _userService.SignUpAsync(command);
+
+            return Created(nameof(Get), null);
+        }
     }
 }

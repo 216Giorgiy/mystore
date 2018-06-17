@@ -1,4 +1,6 @@
 ﻿using Autofac;
+using Microsoft.AspNetCore.Identity;
+using MyStore.Core.Domain;
 
 namespace MyStore.Services
 {
@@ -9,6 +11,8 @@ namespace MyStore.Services
             builder.RegisterAssemblyTypes(typeof(ServicesContainer).Assembly)
                 .AsImplementedInterfaces()
                 .InstancePerLifetimeScope();
+            builder.RegisterType<PasswordHasher<User>>()
+                .As<IPasswordHasher<User>>();
             builder.RegisterInstance(AutoMapperConfig.GetMapper())
                 .SingleInstance();
         }
