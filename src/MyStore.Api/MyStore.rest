@@ -1,5 +1,6 @@
 @url = http://localhost:5000
-@productId = a6c204b6-be7a-4239-a820-d4b6d1d56a2b
+@productId = f3c5fbf0-fea3-41e5-96dd-e5f672b444fb
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI4YWU1Y2FhOC0yZDkzLTQyYjktOGY5MC1hOWY1ZjZhMzYyOGUiLCJ1bmlxdWVfbmFtZSI6IjhhZTVjYWE4LTJkOTMtNDJiOS04ZjkwLWE5ZjVmNmEzNjI4ZSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6InVzZXIiLCJuYmYiOjE1MjkxNjIyNjQsImV4cCI6MTUyOTE2MjU2NCwiaXNzIjoibXlzdG9yZSJ9.kdKBGq2KMsvDy-v1GI7sQu9nqnUfz1bh7QIm_LnNIuA
 
 ###
 GET {{url}}/products
@@ -15,4 +16,15 @@ Content-Type: application/json
     "name": "My product",
     "category": "products",
     "price": 2000
+}
+
+###
+GET {{url}}/me
+Authorization: Bearer {{token}}
+
+###
+POST {{url}}/sign-in
+Content-Type: application/json
+
+{
 }

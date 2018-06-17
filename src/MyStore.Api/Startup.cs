@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel.Design;
 using System.Text;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
@@ -11,12 +10,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using MyStore.Api.Framework;
-using MyStore.Core.Repositories;
 using MyStore.Infrastructure;
 using MyStore.Infrastructure.Auth;
-using MyStore.Infrastructure.Repositories;
 using MyStore.Services;
-using MyStore.Services.Products;
 using Newtonsoft.Json;
 
 namespace MyStore.Api
@@ -42,7 +38,6 @@ namespace MyStore.Api
             services.Configure<AppOptions>(Configuration.GetSection("app"));
             services.Configure<JwtOptions>(Configuration.GetSection("jwt"));
             
-            //bit.ly/sii-jwt2
             var jwtOptions = new JwtOptions();
             Configuration.GetSection("jwt").Bind(jwtOptions);
             
