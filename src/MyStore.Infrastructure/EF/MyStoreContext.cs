@@ -29,7 +29,8 @@ namespace MyStore.Infrastructure.EF
                 return;
             }
 
-            optionsBuilder.UseSqlServer(_sqlOptions.Value.ConnectionString);
+            optionsBuilder.UseSqlServer(_sqlOptions.Value.ConnectionString,
+                o => o.MigrationsAssembly("MyStore.Api"));
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
